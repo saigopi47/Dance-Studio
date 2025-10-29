@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kathak Dance Classes</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: sans-serif;
+      padding: 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      color: #00ffc3;
+      margin-top: 2rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.3rem;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    .card iframe {
+      width: 100%;
+      height: 180px;
+      display: block;
+      border: none;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .tags-bar {
+      margin: 0.5rem 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      margin-right: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .badge.level { background: #ff6a00; color: #fff; }
+    .badge.moves { background: #000; color: #fff; }
+    .badge.choreo { background: #4a148c; color: #fff; }
+    .badge.technique { background: #00695c; color: #fff; }
+
+    .description {
+      font-size: 0.8rem;
+      color: #ccc;
+      margin-top: 0.3rem;
+    }
+
+    .menu-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .menu {
+      position: absolute;
+      top: 35px;
+      right: 10px;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 6px;
+      display: none;
+      flex-direction: column;
+      z-index: 10;
+      width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    }
+
+    .menu.show {
+      display: flex;
+    }
+
+    .menu div {
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #333;
+      cursor: pointer;
+    }
+
+    .menu div:last-child {
+      border-bottom: none;
+    }
+
+    .menu div:hover {
+      background: #333;
+    }
+
+    /* Progress tracking styles */
+    .progress-indicator {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(39, 174, 96, 0.9);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      z-index: 5;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Kathak Dance Classes</h1>
+
+<h2>Beginner</h2>
+<div class="container" id="beginner"></div>
+
+<h2>Intermediate</h2>
+<div class="container" id="intermediate"></div>
+
+<h2>Advanced</h2>
+<div class="container" id="advanced"></div>
+
+<script>
+  const classes = [
+    { title: "Tic Tac Toe Skip", level: "Beginner", duration: "5 min", type: "Moves", tags: ["Kathak", "Mr. YouTube", "Free Class"], videoUrl: "https://www.youtube.com/embed/GIh2obii5hs" },
+    { title: "Twist and Wop", level: "Beginner", duration: "3 min", type: "Moves", tags: ["Kathak", "Free Class"], videoUrl: "https://www.youtube.com/embed/-YE6mRNS3CM" },
+    { title: "Kiss of Death", level: "Beginner", duration: "6 min", type: "Moves", tags: ["Kathak", "Moves"], videoUrl: "https://www.youtube.com/embed/Dg6cvNn6cuU" },
+    { title: "Swiss Bop", level: "Beginner", duration: "4 min", type: "Moves", tags: ["Kathak", "Fundamentals"], videoUrl: "https://www.youtube.com/embed/wjRlcy3hW50" },
+
+    { title: "FL Litefeet Anthem", level: "Intermediate", duration: "12 min", type: "Choreography", tags: ["Kathak", "Beat Luck"], videoUrl: "https://www.youtube.com/embed/WbHuiRuwNR4" },
+    { title: "Day 10: Performance", level: "Intermediate", duration: "12 min", type: "Choreography", tags: ["Kathak", "Saucha Stretch"], videoUrl: "https://www.youtube.com/embed/UFRUgN43My8" },
+    { title: "Day 9: Signature", level: "Intermediate", duration: "10 min", type: "Technique", tags: ["Kathak", "Fundamentals"], videoUrl: "https://www.youtube.com/embed/mr0ySrOZbMA" },
+    { title: "Day 8: Vocabulary", level: "Intermediate", duration: "10 min", type: "Technique", tags: ["Kathak", "Fundamentals"], videoUrl: "https://www.youtube.com/embed/jTPl8mpIycA" },
+
+    { title: "Battle Prep", level: "Advanced", duration: "15 min", type: "Moves", tags: ["Kathak", "Advanced", "Challenge"], videoUrl: "https://www.youtube.com/embed/qB2JpC2hKh0" },
+    { title: "Groove Combo Pro", level: "Advanced", duration: "13 min", type: "Choreography", tags: ["Kathak", "Advanced"], videoUrl: "https://www.youtube.com/embed/IQtwM0Aqkdo" },
+    { title: "Elite Drill", level: "Advanced", duration: "14 min", type: "Technique", tags: ["Kathak", "Footwork"], videoUrl: "https://www.youtube.com/embed/WO3gMAKTN_0" },
+    { title: "Precision Moves", level: "Advanced", duration: "11 min", type: "Moves", tags: ["Kathak"], videoUrl: "https://www.youtube.com/embed/P7Z2gCE6ViQ" }
+  ];
+
+  // Configuration
+  const API_BASE_URL = 'http://localhost:5000/api/auth';
+  const authToken = localStorage.getItem('authToken');
+
+  // Function to track video progress
+  async function trackVideoProgress(danceStyle, level, videoId, videoTitle) {
+      if (!authToken) {
+          console.log('User not logged in, progress not tracked');
+          return;
+      }
+
+      try {
+          const response = await fetch(`${API_BASE_URL}/trackprogress`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${authToken}`
+              },
+              body: JSON.stringify({
+                  danceStyle: danceStyle,
+                  level: level,
+                  videoId: videoId
+              })
+          });
+
+          const data = await response.json();
+          
+          if (response.ok) {
+              console.log(`Progress tracked: ${videoTitle}`);
+              
+              // Store progress in localStorage for UI updates
+              localStorage.setItem('userProgress', JSON.stringify(data.progress));
+              
+              // Show notification
+              showProgressNotification(videoTitle, data.message);
+              
+              // Update UI to show video as watched
+              updateVideoUI(videoId, level);
+          } else {
+              console.error('Failed to track progress:', data.message);
+          }
+      } catch (error) {
+          console.error('Error tracking progress:', error);
+      }
+  }
+
+  // Function to show progress notification
+  function showProgressNotification(videoTitle, message) {
+      // Create a subtle notification
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #27ae60;
+          color: white;
+          padding: 10px 15px;
+          border-radius: 5px;
+          z-index: 1000;
+          font-size: 14px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      `;
+      notification.innerHTML = `✅ Progress saved for: ${videoTitle}`;
+      document.body.appendChild(notification);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+          if (document.body.contains(notification)) {
+              document.body.removeChild(notification);
+          }
+      }, 3000);
+  }
+
+  // Function to update UI when video is watched
+  function updateVideoUI(videoId, level) {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+          const iframe = card.querySelector('iframe');
+          if (iframe && iframe.src.includes(videoId)) {
+              // Add watched indicator
+              let indicator = card.querySelector('.progress-indicator');
+              if (!indicator) {
+                  indicator = document.createElement('div');
+                  indicator.className = 'progress-indicator';
+                  indicator.innerHTML = '✅ Watched';
+                  card.style.position = 'relative';
+                  card.appendChild(indicator);
+              }
+          }
+      });
+  }
+
+  // Helper function to get stored progress
+  function getStoredProgress() {
+      return JSON.parse(localStorage.getItem('userProgress') || '{}');
+  }
+
+  function renderLevel(levelId, levelName) {
+      const container = document.getElementById(levelId);
+      const filtered = classes.filter(c => c.level === levelName);
+      
+      filtered.forEach((c, i) => {
+          const id = `${levelId}-menu-${i}`;
+          const videoId = `kathak-${levelId}-${i}-${c.title.replace(/\s+/g, '-').toLowerCase()}`;
+          const existingProgress = getStoredProgress();
+          const isWatched = existingProgress?.Kathak?.[levelName]?.includes(videoId);
+          
+          container.innerHTML += `
+              <div class="card" data-video-id="${videoId}" data-level="${levelName}">
+                  ${isWatched ? '<div class="progress-indicator">✅ Watched</div>' : ''}
+                  <iframe src="${c.videoUrl}" allowfullscreen></iframe>
+                  <button class="menu-button" onclick="toggleMenu('${id}')">&#8942;</button>
+                  <div class="menu" id="${id}">
+                      <div onclick="trackVideoManual('${videoId}', '${levelName}', '${c.title}')">▶ Mark as Watched</div>
+                      <div>⤴ Share Class</div>
+                      <div>Go to Style</div>
+                      <div>Go to Level</div>
+                      <div>Go to Instructor</div>
+                  </div>
+                  <div class="card-content">
+                      <div class="tags-bar">
+                          <span class="badge level">${c.level}</span>
+                          <span class="badge">${c.duration}</span>
+                          <span class="badge ${c.type.toLowerCase()}">${c.type}</span>
+                      </div>
+                      <h3>${c.title}</h3>
+                      <div class="description">${c.tags.join(" • ")}</div>
+                  </div>
+              </div>
+          `;
+      });
+  }
+
+  // Manual tracking function for menu option
+  function trackVideoManual(videoId, level, title) {
+      trackVideoProgress('Kathak', level, videoId, title);
+      toggleMenu(); // Close menu after selection
+  }
+
+  function toggleMenu(id) {
+      document.querySelectorAll('.menu').forEach(m => {
+          if (m.id === id) m.classList.toggle("show");
+          else m.classList.remove("show");
+      });
+  }
+
+  // Initialize video tracking
+  function initializeVideoTracking() {
+      const videoIframes = document.querySelectorAll('iframe');
+      
+      videoIframes.forEach((iframe) => {
+          const card = iframe.closest('.card');
+          const videoId = card.getAttribute('data-video-id');
+          const level = card.getAttribute('data-level');
+          const title = card.querySelector('h3')?.textContent || 'Unknown Video';
+          
+          // Track when user clicks on the video card
+          card.addEventListener('click', (e) => {
+              // Don't trigger if clicking menu button
+              if (!e.target.classList.contains('menu-button') && 
+                  !e.target.closest('.menu')) {
+                  setTimeout(() => {
+                      trackVideoProgress('Kathak', level, videoId, title);
+                  }, 1000);
+              }
+          });
+      });
+  }
+
+  document.addEventListener("click", function(e) {
+      if (!e.target.classList.contains("menu-button") && 
+          !e.target.closest('.menu')) {
+          document.querySelectorAll('.menu').forEach(m => m.classList.remove("show"));
+      }
+  });
+
+  // Initialize page
+  document.addEventListener('DOMContentLoaded', function() {
+      renderLevel("beginner", "Beginner");
+      renderLevel("intermediate", "Intermediate");
+      renderLevel("advanced", "Advanced");
+      
+      if (authToken) {
+          initializeVideoTracking();
+      }
+  });
+</script>
+
+</body>
+</html>

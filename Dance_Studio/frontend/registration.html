@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dance Registration Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ADDED STYLES FOR MANDATORY INDICATOR */
+    .mandatory-indicator {
+        color: #dc3545; /* Red color for visual prominence */
+        font-weight: bold;
+        margin-left: 2px;
+    }
+    .mandatory-note {
+        font-size: 12px;
+        color: #777;
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
+    /* END ADDED STYLES */
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      padding: 30px;
+      max-width: 650px;
+      width: 90%;
+      border-radius: 12px;
+      color: #333;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0056b3;
+      font-size: 26px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px 10px 10px 40px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+    }
+
+    .input-group textarea {
+      resize: vertical;
+    }
+
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .input-row .input-group {
+      flex: 1 1 48%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #0056b3;
+      outline: none;
+    }
+
+    .gender {
+      margin: 15px 0;
+    }
+
+    .gender label {
+      margin-right: 15px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #003d80;
+    }
+
+    h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    label {
+      display: inline-block;
+      margin-bottom: 6px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .input-row .input-group {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Dance Registration Form</h1>
+    <form id="registrationForm">
+      <div class="input-row">
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="firstName" name="firstName" placeholder="First Name *" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name *" required />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="email">Email <span class="mandatory-indicator">*</span></label>
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" name="email" placeholder="example@domain.com" required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          title="Please enter a valid email address" />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password (For Login) <span class="mandatory-indicator">*</span></label>
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" name="password" placeholder="Choose a password" required
+          minlength="4" title="Password must be at least 4 characters" />
+      </div>
+
+      <div class="input-group">
+        <label for="phone">Phone <span class="mandatory-indicator">*</span></label>
+        <i class="fas fa-phone"></i>
+        <input type="tel" id="phone" name="phone" placeholder="1234567890" required
+          pattern="^\d{10}$" title="Phone number must be exactly 10 digits" />
+      </div>
+
+      <div class="gender">
+        <label style="font-size:20px">Gender : <span class="mandatory-indicator">*</span></label>
+        <label><input type="radio" name="gender" value="Male" required /> Male</label>
+        <label><input type="radio" name="gender" value="Female" /> Female</label>
+        <label><input type="radio" name="gender" value="Other" /> Other</label>
+      </div>
+
+      <h3>Address</h3>
+
+      <div class="input-group">
+        <i class="fas fa-home"></i>
+        <input type="text" id="streetAddress1" name="streetAddress1" placeholder="Street Address *" required />
+      </div>
+
+      <div class="input-group">
+        <i class="fas fa-home"></i>
+        <input type="text" id="streetAddress2" name="streetAddress2" placeholder="Street Address Line 2" />
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <i class="fas fa-city"></i>
+          <input type="text" id="city" name="city" placeholder="City *" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" id="region" name="region" placeholder="Region *" required />
+        </div>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <i class="fas fa-mail-bulk"></i>
+          <input type="text" id="zipCode" name="zipCode" placeholder="Postal / Zip Code *" required />
+        </div>
+        <div class="input-group">
+          <label for="country" style="display: none;">Country <span class="mandatory-indicator">*</span></label>
+          <i class="fas fa-flag"></i>
+          <select id="country" name="country" required>
+            <option value="">Country *</option>
+            <option>India</option>
+             <option>UK</option>
+            <option>USA</option>
+            <option>Canada</option>
+            <option>Australia</option>
+          </select>
+        </div>
+      </div>
+
+      <h3>Class Details and Payment</h3>
+
+      <div class="input-group">
+        <label for="dance-type">Preferred Dance Type <span class="mandatory-indicator">*</span></label>
+        <i class="fas fa-music"></i>
+        <select id="danceType" name="danceType" required>
+          <option value="">Select Dance Type</option>
+          <option value="Salsa">Salsa</option>
+          <option value="Ballet">Ballet</option>
+          <option value="K-pop">K-pop</option>
+          <option value="Hip Hop">Hip Hop</option>
+          <option value="Zumba">Zumba</option>
+          <option value="Belly dance">Belly dance</option>
+          <option value="Kuchipudi">Kuchipudi</option>
+          <option value="Bharatanatyam">Bharatanatyam</option>
+          <option value="Kathak">Kathak</option>
+          <option value="Aerobics">Aerobics</option>
+          <option value="Grabha">Grabha</option>
+          <option value="Dandiya">Dandiya</option>
+          <option value="Bangra">Bangra</option>
+        </select>
+      </div>
+      
+      <div class="input-row">
+        <div class="input-group">
+            <label for="start-date">Start Date <span class="mandatory-indicator">*</span></label>
+            <i class="fas fa-calendar-alt"></i>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
+        <div class="input-group">
+            <label for="start-time">Start Time <span class="mandatory-indicator">*</span></label>
+            <i class="fas fa-clock"></i>
+            <input type="time" id="startTime" name="startTime" required>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="paymentMethod">Payment Method (Registration Fee) <span class="mandatory-indicator">*</span></label>
+        <i class="fas fa-credit-card"></i>
+        <select id="paymentMethod" name="paymentMethod" required>
+            <option value="">Select Payment Method</option>
+            <option value="UPI">UPI / GPay / PhonePe</option>
+            <option value="CreditCard">Credit Card</option>
+            <option value="DebitCard">Debit Card</option>
+        </select>
+        <p style="font-size: 12px; color: green; margin-top: 5px;">*Payment will be simulated on the backend for this demo.</p>
+      </div>
+
+      <div class="input-group">
+        <i class="fas fa-comment-dots"></i>
+        <textarea id="comments" name="comments" rows="3" placeholder="Enter any additional comments..."></textarea>
+      </div>
+      
+      <div class="mandatory-note">
+          <span class="mandatory-indicator">*</span> Indicates a mandatory field.
+      </div>
+      <button type="submit">Register & Pay</button>
+      
+      <div class="signup-link" style="text-align: center; margin-top: 15px;">
+          <p>Already have an account? <a href="login.html">Sign In</a></p>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", async function(event) {
+      event.preventDefault(); // Stop default form submission
+
+      const form = event.target;
+      const formData = new FormData(form);
+      
+      // Collect all form data into a plain JavaScript object
+      const data = {};
+      for (const [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      
+      // Handle the gender radio button, as FormData sometimes misses unchecked ones
+      data.gender = form.querySelector('input[name="gender"]:checked')?.value || 'Not Specified';
+
+      // Ensure dates are correctly formatted if needed, though ISO format is usually fine
+      
+      const registerButton = form.querySelector('button[type="submit"]');
+      registerButton.disabled = true;
+      registerButton.textContent = 'Processing...';
+
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Registration and Payment Successful
+          alert(result.message + ' You can now log in.');
+          // Redirect to login page
+          window.location.href = 'login.html'; 
+        } else {
+          // Handle registration/payment error (e.g., User already exists, Payment failed)
+          alert('Registration Failed: ' + (result.message || 'Server error.'));
+        }
+      } catch (error) {
+        console.error('Network Error:', error);
+        alert('Could not connect to the registration server. Check if the backend is running.');
+      } finally {
+        registerButton.disabled = false;
+        registerButton.textContent = 'Register & Pay';
+      }
+    });
+  </script>
+</body>
+</html>
